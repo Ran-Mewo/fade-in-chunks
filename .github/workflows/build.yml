@@ -15,6 +15,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '16'
+        distribution: 'adopt'
     - name: Build Artifacts
       run: ./gradlew build
     - name: Upload Build Artifacts
