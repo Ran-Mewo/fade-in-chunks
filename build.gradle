@@ -10,8 +10,8 @@ group = project.mavenGroup
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraftVersion}"
     mappings "net.fabricmc:yarn:${project.yarnMappings}:v2"
-    modImplementation("net.fabricmc:fabric-loader:${project.loaderVersion}")
-    modImplementation("com.github.CaffeineMC:sodium-fabric:${project.sodiumVersion}")
+    modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}" 
+    modImplementation "com.github.CaffeineMC:sodium-fabric:${project.sodiumVersion}"
 }
 
 processResources {
