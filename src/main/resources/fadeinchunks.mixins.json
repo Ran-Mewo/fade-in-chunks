@@ -1,5 +1,6 @@
 {
   "required": true,
+  "minVersion": "0.8.2",
   "package": "de.johni0702.minecraft.fadeinchunks.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
