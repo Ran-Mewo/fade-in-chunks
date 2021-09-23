@@ -1,27 +1,21 @@
 plugins {
-	id("fabric-loom") version "0.6-SNAPSHOT"
-	id("maven-publish")
+    id 'fabric-loom' version '0.8-SNAPSHOT'
+//	id("maven-publish")
 }
 
-val modVersion: String by project
-val mavenGroup: String by project
-version = modVersion
-group = mavenGroup
-
-val sodiumVersion: String by project
+archivesBaseName = "${project.archivesBaseName-mc${project.minecraftVersion}"
+version = project.modVersion
+group = project.mavenGroup
 
 dependencies {
-	val minecraftVersion: String by project
-	val yarnMappings: String by project
-	val loaderVersion: String by project
-	minecraft("com.mojang:minecraft:${minecraftVersion}")
-	mappings("net.fabricmc:yarn:${yarnMappings}:v2")
-	modImplementation("net.fabricmc:fabric-loader:${loaderVersion}")
-	modImplementation("com.github.CaffeineMC:sodium-fabric:${sodiumVersion}")
+    minecraft("com.mojang:minecraft:${project.minecraftVersion}")
+    mappings("net.fabricmc:yarn:${project.yarnMappings}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.loaderVersion}")
+    modImplementation("com.github.CaffeineMC:sodium-fabric:${project.sodiumVersion}")
 }
 
 tasks.processResources {
-	inputs.property("version", modVersion)
+    inputs.property "version", modVersion)
 
 	filesMatching("fabric.mod.json") {
 		expand(mutableMapOf(
@@ -30,10 +24,8 @@ tasks.processResources {
 	}
 }
 
-tasks.withType<JavaCompile> {
+tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
-	sourceCompatibility = "1.8"
-	targetCompatibility = "1.8"
 }
 
 tasks.withType<AbstractArchiveTask> {
@@ -62,4 +54,28 @@ repositories {
 			includeGroup("com.github.CaffeineMC")
 		}
 	}
+}
+
+def getVersionMetadata() {
+    def build_id = System.getenv("GITHUB_RUN_NUMBER")
+
+    // CI builds only
+    if (build_id != null) {
+        return "build.${build_id}"
+    }
+
+    if (grgit != null) {
+        def head = grgit.head()
+        def id = head.abbreviatedId
+
+        // Flag the build if the build tree is not clean
+        if (!grgit.status().clean) {
+            id += "-dirty"
+        }
+
+        return "rev.${id}"
+    }
+
+    // No tracking information could be found about the build
+    return "unknown"
 }
