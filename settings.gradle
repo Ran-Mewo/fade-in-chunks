@@ -5,13 +5,6 @@ pluginManagement {
             name = 'Fabric'
             url = "https://maven.fabricmc.net/"
         }
-        maven {
-            name = "Modrinth"
-            url = "https://api.modrinth.com/maven"
-            content {
-                includeGroup "maven.modrinth"
-            }
-        }
         gradlePluginPortal()
     }
 }
