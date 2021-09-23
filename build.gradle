@@ -4,7 +4,7 @@ plugins {
 }
 
 archivesBaseName = "${project.archivesBaseName-mc${project.minecraftVersion}"
-version = project.modVersion
+version = "${project.mod_version}+${getVersionMetadata()}"
 group = project.mavenGroup
 
 dependencies {
@@ -14,14 +14,12 @@ dependencies {
     modImplementation("com.github.CaffeineMC:sodium-fabric:${project.sodiumVersion}")
 }
 
-tasks.processResources {
-    inputs.property "version", modVersion)
-
-	filesMatching("fabric.mod.json") {
-		expand(mutableMapOf(
-				"version" to modVersion
-		))
-	}
+processResources {
+    inputs.property "version", project.modVersion
+    
+    filesMatching("fabric.mod.json") {
+    	expand "version": project.modVersion
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -33,28 +31,11 @@ tasks.withType<AbstractArchiveTask> {
 	archiveBaseName.set(archivesBaseName)
 }
 
-tasks.jar {
-	from("LICENSE.md")
-	from("LICENSE.LESSER.md")
+jar {
+    from "LICENSE.md"
+    from "LICENSE.LESSER.md"
 }
 
-publishing {
-	publications {
-		create("mavenJava", MavenPublication::class.java) {
-			artifact(tasks.remapJar) {
-				builtBy(tasks.remapJar)
-			}
-		}
-	}
-}
-
-repositories {
-	maven("https://jitpack.io") {
-		content {
-			includeGroup("com.github.CaffeineMC")
-		}
-	}
-}
 
 def getVersionMetadata() {
     def build_id = System.getenv("GITHUB_RUN_NUMBER")
