@@ -3,7 +3,7 @@ plugins {
 //	id("maven-publish")
 }
 
-archivesBaseName = "${project.archivesBaseName-mc${project.minecraftVersion}"
+archivesBaseName = "${project.archivesBaseName}-mc${project.minecraftVersion}"
 version = "${project.mod_version}+${getVersionMetadata()}"
 group = project.mavenGroup
 
