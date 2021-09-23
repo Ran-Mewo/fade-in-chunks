@@ -26,11 +26,6 @@ tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
 }
 
-tasks.withType<AbstractArchiveTask> {
-	val archivesBaseName: String by project
-	archiveBaseName.set(archivesBaseName)
-}
-
 jar {
     from "LICENSE.md"
     from "LICENSE.LESSER.md"
