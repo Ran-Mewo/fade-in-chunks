@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraftVersion}"
-    mappings "net.fabricmc:yarn:${project.yarnMappings}:v2"
+    mappings minecraft.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}" 
     modImplementation "maven.modrinth:sodium:${project.sodiumVersion}"
 }
