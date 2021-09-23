@@ -4,7 +4,7 @@ plugins {
 }
 
 archivesBaseName = "${project.archivesBaseName}-mc${project.minecraftVersion}"
-version = "${project.mod_version}+${getVersionMetadata()}"
+version = "${project.modVersion}+${getVersionMetadata()}"
 group = project.mavenGroup
 
 dependencies {
