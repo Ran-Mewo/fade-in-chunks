@@ -1,27 +1,18 @@
 plugins {
     id 'fabric-loom' version '0.8-SNAPSHOT'
-//	id("maven-publish")
+    id "maven-publish"
 }
 
 archivesBaseName = "${project.archivesBaseName}-mc${project.minecraftVersion}"
 version = "${project.modVersion}+${getVersionMetadata()}"
 group = project.mavenGroup
 
-repositories {
-	maven {
-		name = "Modrinth"
-		url = "https://api.modrinth.com/maven"
-		content {
-			includeGroup "maven.modrinth"
-		}
-	}
-}
-
 dependencies {
+//NOTE: THINK ABOUT OTHER POSSIBLE DEPS DOWN THE ROAD
     minecraft "com.mojang:minecraft:${project.minecraftVersion}"
-    mappings "net.fabricmc:yarn:${project.yarnMappings}:v2"
+    mappings minecraft.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loaderVersion}" 
-    modImplementation "maven.modrinth:sodium:${project.sodiumVersion}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabricVersion}"
 }
 
 processResources {
