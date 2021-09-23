@@ -5,6 +5,7 @@ repositories {
 		content {
 			includeGroup "maven.modrinth"
 		}
+	}
 }
 
 plugins {
